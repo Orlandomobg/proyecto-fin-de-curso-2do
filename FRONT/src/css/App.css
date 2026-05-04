@@ -1,0 +1,197 @@
+:root {
+  /* Unified premium color palette */
+  --bg-deep: #020617;                       /* Near-black blue base */
+  --bg-gradient: #0f172a;                   /* Midnight blue for gradient */
+  --card-bg: rgba(30, 41, 59, 0.7);         /* Transparency for glass effect */
+  --sun-gold: #fbbf24;                      /* Solar yellow accent */
+  --sun-glow: rgba(251, 191, 36, 0.4);
+  --text-primary: #f8fafc;
+  --text-muted: #94a3b8;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* --- FIXES THE GRAY BLOCK --- */
+html, body {
+  height: 100%; /* Force full height on HTML and BODY */
+}
+
+body {
+  /* Radial gradient background that now covers the full viewport */
+  background: radial-gradient(circle at top right, var(--bg-gradient), var(--bg-deep)) no-repeat center center fixed;
+  background-size: cover;
+  color: var(--text-primary);
+  font-family: 'Poppins', sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Main container for routes */
+.min-h-screen {
+  flex: 1; /* Takes all available space, pushing footer down if present */
+  display: flex;
+  flex-direction: column;
+}
+
+/* --- PREMIUM HEADER (GLASSMORPHISM) --- */
+.header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  background: rgba(15, 23, 42, 0.8); /* Semi-transparent background */
+  backdrop-filter: blur(12px);        /* Blur effect */
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10%;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05); /* Subtle separator */
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 25px;
+  align-items: center;
+}
+
+/* Navigation links (Inicio, Calculadora) */
+.nav-item-link {
+  color: var(--text-primary);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.nav-item-link:hover {
+  color: var(--sun-gold);
+}
+
+/* Login button (outline style) */
+.btn-login {
+  background: transparent;
+  color: var(--sun-gold);
+  border: 1px solid var(--sun-gold);
+  padding: 10px 25px;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Register button (solid style) */
+.btn-register {
+  background: var(--sun-gold);
+  color: var(--bg-deep);
+  border: none;
+  padding: 12px 28px;
+  border-radius: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-login:hover,
+.btn-register:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 20px var(--sun-glow);
+}
+
+/* --- HEADINGS & FORMS (PREMIUM STYLE) --- */
+h2 {
+  margin-top: 130px; /* Offset for the fixed header */
+  text-align: center;
+  font-size: 3rem;
+  font-weight: 800;
+  text-transform: uppercase;
+
+  /* Subtle text gradient */
+  background: linear-gradient(to bottom, #ffffff, var(--sun-gold));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  /* Soft energy glow */
+  filter: drop-shadow(0 0 15px rgba(251, 191, 36, 0.2));
+  margin-bottom: 20px;
+}
+
+/* Form card (Glassmorphism) */
+.formulario {
+  background: var(--card-bg);
+  backdrop-filter: blur(10px); /* Blur behind the card */
+  max-width: 450px;
+  margin: 20px auto 40px;
+  padding: 40px;
+  border-radius: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  /* Deep shadow for depth */
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border */
+}
+
+/* Inner container to group inputs and buttons */
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+input {
+  background: rgba(2, 6, 23, 0.8); /* Darker input background */
+  border: 1px solid #334155;
+  padding: 14px;
+  border-radius: 12px;
+  color: white;
+  font-size: 1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input:focus {
+  border-color: var(--sun-gold);
+  box-shadow: 0 0 10px var(--sun-glow);
+  outline: none;
+}
+
+/* Primary form button */
+.btn-submit {
+  background: var(--sun-gold);
+  color: var(--bg-deep);
+  padding: 16px;
+  border: none;
+  border-radius: 12px;
+  font-weight: 800;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: all 0.3s ease;
+}
+
+.btn-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(251, 191, 36, 0.2);
+}
+
+/* Secondary button (e.g. "Don't have an account?") */
+.btn-secondary {
+  background: transparent;
+  color: var(--text-muted);
+  border: none;
+  margin-top: 10px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  text-decoration: underline;
+  transition: color 0.3s ease;
+}
+
+.btn-secondary:hover {
+  color: var(--sun-gold);
+}
