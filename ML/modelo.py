@@ -6,13 +6,15 @@ from sklearn.metrics import mean_absolute_error
 import joblib
 import os
 
+
+#NOTA: TE SIRVE PARA SABER LOS WATTS DE CARA A FUTURO. MA SPARA PARTE DE PRODUCCION
 # Entrenamiento de donde sace el csv https://re.jrc.ec.europa.eu/pvg_tools/en/#api_5.3
 # ==========================================
 # 1. CONFIGURACIÓN DE RUTA (DIRECTO A DOWNLOADS)
 # ==========================================
 
 # Usamos la ruta exacta que me pasaste
-ruta_csv = r"C:\Users\coco\Downloads\Timeseries_40.424_-3.690_SA3_1kWp_crystSi_14_36deg_-5deg_2019_2023.csv"
+ruta_csv = r"C:\Users\orlando\AppData\Local\Packages\5319275A.WhatsAppDesktop_cv1g1gvanyjgm\LocalState\sessions\9364EF17782D595A92A539EB6414CC9E0FCD7B29\transfers\2026-19\Timeseries_40.424_-3.690_SA3_1kWp_crystSi_14_36deg_-5deg_2019_2023.csv"
 
 print(f"Intentando cargar el archivo desde: {ruta_csv}")
 

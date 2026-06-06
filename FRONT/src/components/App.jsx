@@ -36,41 +36,25 @@ function App() {
 
   // MAIN CONNECTION FUNCTION
   const handleFinalData = async (formData) => {
-    setIsLoading(true);
-    try {
-      // 1. Get local engineering recommendation (includes the full panel object)
-      const engineeringResult = processSimulation(formData);
+  setIsLoading(true);
+  try {
+    const engineeringResult = await processSimulation({
+      ...formData,
+      latitude: coords.lat,
+      longitude: coords.lon,
+    });
 
-      // 2. Query the backend for climate/savings data
-      const response = await axios.post("http://localhost:3000/api/calcular-solar", {
-        lat: coords.lat,
-        lon: coords.lon,
-        formUser: {
-          gastoMensual: formData.gasto,
-          cantidadPaneles: engineeringResult.quantity,
-          wattsPanel: engineeringResult.panel.watts
-        }
-      });
+    console.log("engineeringResult:", engineeringResult); // ← verifica que llega bien
 
-      // 3. BUILD THE FINAL OBJECT
-      // Combine server response with links and technical data from the local engine
-      const finalData = {
-        ...response.data,                    // Brings 'comparativa', 'gastoOriginal', etc.
-        ...engineeringResult.panel,          // Brings 'link_compra', 'ficha_tecnica', 'garantia', etc.
-        panelName: engineeringResult.panel.nombre,
-        unitPanelCost: engineeringResult.panel.costo_panel_eur,
-        quantity: engineeringResult.quantity,
-        occupiedArea: engineeringResult.areaOcupada
-      };
+    setAiResult(engineeringResult); // temporal hasta reconectar el SolarResult
 
-      setAiResult(finalData);
-    } catch (error) {
-      console.error("Detailed error:", error.response?.data || error.message);
-      alert("Error en el servidor de IA. Revisa la consola.");
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  } catch (error) {
+    console.error("Detailed error:", error.response?.data || error.message);
+    alert("Error en el servidor de IA. Revisa la consola.");
+  } finally {
+    setIsLoading(false);
+  }
+};
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#0f172a', color: 'white' }}>
