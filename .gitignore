@@ -7,3 +7,7 @@ firebase-key.json
 .env.local
 *.key
 *.pem
+
+NODE/src/config/firebase-key.json
+*.key
+.env
