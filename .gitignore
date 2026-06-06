@@ -1,2 +1,9 @@
 .claude/
 claude.md
+
+
+firebase-key.json
+.env
+.env.local
+*.key
+*.pem
