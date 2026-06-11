@@ -1,82 +1,56 @@
 const FASTAPI = process.env.FASTAPI_URL || "http://localhost:8000"
 
-const getSolarResource = async (latitude,longitude) => {
-    try {
-        const response = await fetch(`${FASTAPI}/solar_resource`,{
-            method : "POST",
-            headers : {
-                "content-type": 'application/json'
-            },
-            body : JSON.stringify({latitude,longitude})
+const postJson = async (path, body) => {
+    const response = await fetch(`${FASTAPI}${path}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body)
     })
-        if (!response.ok) {
-            throw new Error(`FASTAPI error: ${response.status}`)
-        } else
-            return await response.json()
+    if (!response.ok) {
+        throw new Error(`FASTAPI error: ${response.status}`)
+    }
+    return await response.json()
+}
 
+const getSolarResource = async (latitude, longitude) => {
+    try {
+        return await postJson("/solar_resource/", { latitude, longitude })
     } catch (error) {
         throw new Error(`error: ${error.message}`)
-
     }
 }
 
-const getSystemDesign = async (latitude,longitude,area_usable_m2,surface_type,panel_area_m2,panel_power_watt) =>{
+const getSystemDesign = async (latitude, longitude, area_usable_m2, surface_type, panel_area_m2, panel_power_watt) => {
     try {
-        const response = await fetch(`${FASTAPI}/system_design`,{
-            method : "POST",
-            headers : {
-                "content-type" : "application/json"
-            },
-            body : JSON.stringify({latitude,longitude,area_usable_m2,surface_type,panel_area_m2,panel_power_watt})
-        
-        })
-        if (!response.ok){
-            throw new Error(`FASTAPI error: ${response.status}`)
-        }else{
-            return await response.json()
-        }
+        return await postJson("/system_design/", { latitude, longitude, area_usable_m2, surface_type, panel_area_m2, panel_power_watt })
     } catch (error) {
         throw new Error(`error: ${error.message}`)
     }
-
 }
 
 const getProduction = async (payload) => {
     try {
-        const response = await fetch(`${FASTAPI}/production/`, {
-            method: "POST",
-            headers: { 
-                "Content-Type": "application/json" 
-            },
-            body: JSON.stringify(payload)
-        })
-        if (!response.ok) {
-            throw new Error(`FASTAPI error: ${response.status}`)
-        }
-        return await response.json()
+        return await postJson("/production/", payload)
     } catch (error) {
         throw new Error(`error: ${error.message}`)
     }
 }
 
-const getFinancial = async(payload) => {
+const getFinancial = async (payload) => {
     try {
-        const response = await fetch(`${FASTAPI}/financial/`,{
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(payload)
-        })
-        if (!response.ok) {
-            throw new Error(`FASTAPI error: ${response.status}`)
-        }
-        return await response.json()
-        throw new Error(`error: ${error.message}`)
+        return await postJson("/financial/", payload)
     } catch (error) {
-        
+        throw new Error(`error: ${error.message}`)
     }
-} 
+}
 
+// predicción ML en tiempo real (watts ahora mismo)
+const getRealtimePrediction = async (lat, lon, slope, azimuth) => {
+    try {
+        return await postJson("/prediction/", { lat, lon, slope, azimuth })
+    } catch (error) {
+        throw new Error(`error: ${error.message}`)
+    }
+}
 
-module.exports = {getSolarResource,getSystemDesign,getProduction,getFinancial}
+module.exports = { getSolarResource, getSystemDesign, getProduction, getFinancial, getRealtimePrediction }
