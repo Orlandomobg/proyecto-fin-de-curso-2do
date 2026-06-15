@@ -1,13 +1,14 @@
-.claude/
-CLAUDE.md
-
-
-firebase-key.json
 .env
-.env.local
-*.key
-*.pem
+*.pkl
 
-NODE/src/config/firebase-key.json
-*.key
-.env
+# Esto va a ignorar cualquier carpeta __pycache__ en cualquier nivel del proyecto
+**/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Entornos virtuales
+.venv/
+venv/
+ENV/
+ENV/
