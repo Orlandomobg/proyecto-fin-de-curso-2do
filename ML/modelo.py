@@ -12,7 +12,7 @@ import os
 # ==========================================
 
 # Usamos la ruta exacta que me pasaste
-ruta_csv = r"C:\Users\coco\Downloads\Timeseries_40.424_-3.690_SA3_1kWp_crystSi_14_36deg_-5deg_2019_2023.csv"
+ruta_csv = r"C:\Users\rdelc\Desktop\dataset_solar_final.csv"
 
 print(f"Intentando cargar el archivo desde: {ruta_csv}")
 
