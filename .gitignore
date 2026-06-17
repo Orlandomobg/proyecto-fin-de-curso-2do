@@ -1,0 +1,14 @@
+.env
+*.pkl
+
+# Esto va a ignorar cualquier carpeta __pycache__ en cualquier nivel del proyecto
+**/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Entornos virtuales
+.venv/
+venv/
+ENV/
+ENV/

@@ -11,19 +11,28 @@ export const fetchPanels = async () => {
 
 // ─── 2. System Design ─────────────────────────────────────────────────────────
 export const fetchSystemDesign = async ({ latitude, longitude, superficie, surface_type, panel }) => {
+  const payload = {
+    latitude,
+    longitude,
+    area_usable_m2: superficie,
+    surface_type,
+    panel_area_m2: panel.area_m2,
+    panel_power_watt: panel.power_watt,
+  };
+  
+  console.log("SystemDesign payload:", payload); // ← añade esto
+
   const response = await fetch(`${API}/api/solar/get-system-design`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      latitude,
-      longitude,
-      area_usable_m2: superficie,
-      surface_type,
-      panel_area_m2: panel.area_m2,
-      panel_power_watt: panel.power_watt,
-    }),
+    body: JSON.stringify(payload),
   });
-  if (!response.ok) throw new Error(`System design error: ${response.status}`);
+
+  if (!response.ok) {
+    const errorBody = await response.json();
+    console.log("Error body:", errorBody); // ← y esto
+    throw new Error(`System design error: ${response.status}`);
+  }
   return response.json();
 };
 
@@ -53,7 +62,7 @@ export const processSimulation = async ({
 
   // 1. Carga paneles reales desde DB
   const panels = await fetchPanels();
-
+  console.log(panels)
   // 2. Sort por prioridad (lógica ligera, ok en front)
   const sorted = [...panels];
   if (prioridad === "economico") {
@@ -70,18 +79,18 @@ export const processSimulation = async ({
 
   // 3. System design real (PVGIS)
   const systemDesign = await fetchSystemDesign({
-    latitude, longitude, superficie, surface_type,
+    latitude, longitude, superficie, surface_type:"building",
     panel: bestPanel,
   });
 
   // 4. Financial completo
-  const financial = await fetchFinancial({ property_id, panel_id });
+  // const financial = await fetchFinancial({ property_id, panel_id });
 
   return {
     panel: bestPanel,
     allPanels: panels,       // útil si el front quiere mostrar comparativa
     systemDesign,
-    financial,
+    //financial,
     originalExpense: gasto,
     orientacion,
   };

@@ -1,14 +1,21 @@
 const {createUser, getUserByFirebaseUid, getUserById, updateUser, deleteUser, getAllUsers} = require("../models/user.model");
 
+
 const createUserController = async (req, res) => {
   try {
-    const { firebaseUid, email, name } = req.body;
+    const { uid, email } = req.firebaseUser;
+    const { name } = req.body;
 
-    if (!firebaseUid || !email) {
-      return res.status(400).json({ error: "firebaseUid and email required" });
+    if (!uid || !email) {
+      return res.status(400).json({ error: "Invalid Firebase token payload" });
     }
 
-    const user = await createUser(firebaseUid, email, name);
+    const existing = await getUserByFirebaseUid(uid);
+    if (existing) {
+      return res.status(409).json({ error: "User already registered" });
+    }
+
+    const user = await createUser(uid, email, name);
     return res.status(201).json(user);
   } catch (error) {
     console.error("Create user error:", error);
@@ -85,5 +92,4 @@ const getUserByIdController = async (req, res) => {
   }
 };
 
-module.exports = {createUserController, getProfileController,updateProfileController,deleteProfileController,getAllUsersController,getUserByIdController};
-
+module.exports = {createUserController, getProfileController, updateProfileController, deleteProfileController, getAllUsersController, getUserByIdController};
