@@ -58,6 +58,6 @@ def entrenar(ruta_csv, salida_pkl):
 
 
 if __name__ == "__main__":
-    ruta_csv = sys.argv[1] if len(sys.argv) > 1 else os.getenv("DATASET_CSV", "K:/dataset_solar_final.csv")
+    ruta_csv = sys.argv[1] if len(sys.argv) > 1 else os.getenv("DATASET_CSV", "./ML/dataset_solar_final.csv")
     salida_pkl = sys.argv[2] if len(sys.argv) > 2 else os.getenv("MODEL_OUT", DEFAULT_MODEL_OUT)
     entrenar(ruta_csv, salida_pkl)
