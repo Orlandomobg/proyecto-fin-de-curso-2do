@@ -8,12 +8,17 @@ if (!FIREBASE_PROJECT_ID || !FIREBASE_CLIENT_EMAIL || !FIREBASE_PRIVATE_KEY) {
   );
 }
 
+const formattedPrivateKey = FIREBASE_PRIVATE_KEY
+  .replace(/^"|"$/g, "")
+  .replace(/^'|'$/g, "")
+  .replace(/\\n/g, "\n")
+  .trim();
+
 admin.initializeApp({
-  credential: admin.credential.cert({
+  credential: admin.cert({
     projectId: FIREBASE_PROJECT_ID,
     clientEmail: FIREBASE_CLIENT_EMAIL,
-    // en el .env la clave va con los saltos escapados (\n); los devolvemos a saltos reales
-    privateKey: FIREBASE_PRIVATE_KEY.replace(/\\n/g, "\n"),
+    privateKey: formattedPrivateKey,
   }),
 });
 
