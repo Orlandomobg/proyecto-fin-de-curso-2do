@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "859502919301",
+    "project_id": "solar-project-18f10",
+    "storage_bucket": "solar-project-18f10.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:859502919301:android:0ae61b5120600d199b33ec",
+        "android_client_info": {
+          "package_name": "com.example.solaris"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDN0wjC2umNRC1oi-y1SB-CtFOQMuTi6Tg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
